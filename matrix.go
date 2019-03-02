@@ -248,6 +248,16 @@ func (c *RGBLedMatrix) Set(position int, color color.Color) {
 	c.leds[position] = C.uint32_t(colorToUint32(color))
 }
 
+// SetBrightness sets the desired brightness.
+func (c *RGBLedMatrix) SetBrightness(brightness uint8) {
+	C.led_matrix_set_brightness(c.matrix, C.uint8_t(brightness))
+}
+
+// GetBrightness gets the current brightness.
+func (c *RGBLedMatrix) GetBrightness() uint8 {
+	return uint8(C.led_matrix_get_brightness(c.matrix))
+}
+
 // Close finalizes the ws281x interface
 func (c *RGBLedMatrix) Close() error {
 	C.led_matrix_delete(c.matrix)
